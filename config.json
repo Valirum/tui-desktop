@@ -1,0 +1,138 @@
+{
+    "paths": {
+        "favorite": {
+            "folders": [
+                [
+                    "./bg_images",
+                    "22",
+                    "0"
+                ],
+                [
+                    ".",
+                    "0",
+                    "6"
+                ],
+                [
+                    "/",
+                    "0",
+                    "1"
+                ],
+                [
+                    "/home/ap",
+                    "0",
+                    "0"
+                ],
+                [
+                    "/home/ap/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b",
+                    "1",
+                    "0"
+                ]
+            ],
+            "files": [
+                [
+                    "./requirements.txt",
+                    "0",
+                    "2"
+                ]
+            ]
+        }
+    },
+    "commands": {
+        "favorite": [
+            {
+                "name": "Fastfetch",
+                "cmd": "fastfetch"
+            },
+            {
+                "name": "Htop",
+                "cmd": "htop"
+            },
+            {
+                "name": "Micro",
+                "cmd": "micro"
+            },
+            {
+                "name": "Neofetch",
+                "cmd": "neofetch"
+            },
+            {
+                "name": "Vim",
+                "cmd": "vim"
+            },
+            {
+                "name": "Nano",
+                "cmd": "nano"
+            },
+            {
+                "name": "Terminal",
+                "cmd": "bash"
+            },
+            {
+                "name": "Python REPL",
+                "cmd": "python3"
+            }
+        ],
+        "recent": [
+            {
+                "name": "python",
+                "cmd": "cd /home/ap/SPO/kursach && python"
+            },
+            {
+                "name": "nano ascii_cache.json",
+                "cmd": "nano ascii_cache.json"
+            },
+            {
+                "name": "nano ./venv/lib/python3.13/site-packages/cusser/__init__.py",
+                "cmd": "nano ./venv/lib/python3.13/site-packages/cusser/__init__.py"
+            },
+            {
+                "name": "cd /home/ap/SPO/kursach && nano config.json",
+                "cmd": "cd /home/ap/SPO/kursach && nano config.json"
+            },
+            {
+                "name": "cd /home/ap/SPO/kursach && nano config.json[M[M[M[M[M[M",
+                "cmd": "cd /home/ap/SPO/kursach && nano config.json[M[M[M[M[M[M"
+            },
+            {
+                "name": "cd /home/ap/SPO/kursach && nano config.json[M[",
+                "cmd": "cd /home/ap/SPO/kursach && nano config.json[M["
+            },
+            {
+                "name": "cd /home/ap/SPO/kursach && nano config.json[M[[B[B[B[B[B[B[B[M",
+                "cmd": "cd /home/ap/SPO/kursach && nano config.json[M[[B[B[B[B[B[B[B[M"
+            },
+            {
+                "name": "nano config.json",
+                "cmd": "nano config.json"
+            },
+            {
+                "name": "cd /home/ap/SPO/kursach",
+                "cmd": "cd /home/ap/SPO/kursach"
+            },
+            {
+                "name": "nano main.py",
+                "cmd": "nano main.py"
+            },
+            {
+                "name": "bash sth.sh",
+                "cmd": "bash sth.sh"
+            },
+            {
+                "name": "catsthsh",
+                "cmd": "cd /home/ap/SPO/kursach && catsthsh"
+            },
+            {
+                "name": "cat sth.sh",
+                "cmd": "cd /home/ap/SPO/kursach && cat sth.sh"
+            },
+            {
+                "name": "nano requirements.txt",
+                "cmd": "nano requirements.txt"
+            },
+            {
+                "name": "fastfetch",
+                "cmd": "fastfetch"
+            }
+        ]
+    }
+}
