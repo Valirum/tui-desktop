@@ -1,5 +1,7 @@
 cusser==0.1.1
 ochre==0.1.1
+pillow==11.3.0
+psutil==7.1.0
 pyte==0.8.2
 stransi==0.1.0
 wcwidth==0.2.13
