@@ -32,7 +32,7 @@ hovered_tab = -10  # Индекс вкладки, над которой нахо
 battary_metrics = 0
 prev_curs_y = [0, 0] # Для обновления строчки, с которой ушёл курсор
 
-desktop_mode = "normal"  # или "favorite"
+desktop_mode = "favorite"  # или "favorite"
 navigation_stack = []    # [(mode, path), ...]
 
 DEBUG_LAST_KEY_CODE = 0
@@ -114,7 +114,7 @@ def get_battery_icon(percentage):
 
 prefix_items = [{
     "str":lambda: "[MENU]",
-    "click": lambda win, twin: show_menu_dialog(win)
+    "click": lambda win, twin: show_menu_dialog(win, twin)
 },
 {
     "str":lambda: " [+] ",
@@ -210,7 +210,7 @@ def create_desktop_icon(icon_type, name):
         }
     }
     icon_data = icons.get(icon_type, icons['file'])
-    clean_name = name.replace('.sh', '')
+    clean_name = name#.replace('.sh', '')
     lines = []
     for i in range(0, len(clean_name), 7):
         lines.append(clean_name[i:i+7])
@@ -524,7 +524,7 @@ def render_desktop(workspace_win, redraw=False):
 
 def handle_desktop_mouse(mouse_event, workspace_win):
     """Обработка мыши на рабочем столе"""
-    global hovered_desktop_item, current_tab, current_directory
+    global hovered_desktop_item, current_tab, current_directory, desktop_mode
     
     _, x, y, _, bstate = mouse_event
     
@@ -654,7 +654,7 @@ def main(stdscr):
             # Если текущая вкладка - главная, показываем приглашение и меню
             if current_tab == 0 and tabs[0]['cmd'] is None:
                 # Инициализируем рабочий стол при первом входе
-                if not desktop_items:
+                if not desktop_items or iterations % 30 == 0:
                     scan_desktop_items(workspace_win)
                 
                 # Отображаем рабочий стол
@@ -700,7 +700,7 @@ def main(stdscr):
                     
             # Обработка ввода для главной вкладки
             if current_tab == 0 and tabs[0]['cmd'] is None:
-                handle_main_input(ch, workspace_win)
+                handle_main_input(ch, workspace_win, taskbar_win)
             else:
                 # Отправка ввода в активную вкладку
                 try:
@@ -983,7 +983,7 @@ def send_key_to_pty(ch, tab_index):
         # Передаем остальные символы как есть
         os.write(tab['master_fd'], bytes([ch]))
 
-def handle_main_input(ch, workspace_win):
+def handle_main_input(ch, workspace_win, taskbar_win):
     """Обработка ввода на главном экране"""
     global input_buffer, current_tab, hovered_desktop_item, current_directory, desktop_items, current_bg_image, desktop_mode, current_directory, navigation_stack
     
@@ -1246,6 +1246,17 @@ def handle_main_input(ch, workspace_win):
         navigation_stack = []
         scan_desktop_items(workspace_win)
         return
+    elif ch == 18:
+        show_new_tab_dialog(workspace_win, taskbar_win)  
+    elif ch == 14:
+        show_menu_dialog(workspace_win, taskbar_win)
+    elif ch == 3:
+        show_calendar_dialog(workspace_win, taskbar_win)
+    elif ch == 26:
+        if mouse_enabled:
+            print('\033[?1003l')  # Отключить отслеживание мыши
+            sys.stdout.flush()
+        sys.exit(0)	
     else:
         pass
 
@@ -1282,7 +1293,7 @@ def handle_prefix_char(ch, win, twin):
         sys.exit(0)		
     elif ch == ord("r") or ch == ord("R"):
         show_new_tab_dialog(win, twin)
-    elif ch == ord("m") or ch == ord("M"):
+    elif ch == ord("n") or ch == ord("N"):
         show_menu_dialog(win, twin)
     elif ch == ord('h') or ch == ord('H'):
         switch_to_tab(0)
@@ -1742,7 +1753,9 @@ def show_new_tab_dialog(workspace_win, tab_win):
                 command = input_buffer.strip()
                 idx = create_new_tab()
                 switch_to_tab(idx)
-                run_command_in_pty(command, workspace_win, idx, dir_ = current_directory)
+                execution_dir = "." if desktop_mode == "favorite" else current_directory
+                run_command_in_pty(command, workspace_win, idx, dir_ = execution_dir)
+                
             break
             
         elif ch in (curses.KEY_BACKSPACE, 127, 8):  # Backspace
@@ -1787,6 +1800,7 @@ def show_new_tab_dialog(workspace_win, tab_win):
     workspace_win.refresh()
     global force_render
     force_render = 2
+    
 
 def show_menu_dialog(workspace_win, tab_win):
     """Показывает диалоговое меню с командами и файлами внизу в центре"""
